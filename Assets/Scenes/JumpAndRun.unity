@@ -1758,15 +1758,10 @@ Transform:
   m_PrefabInstance: {fileID: 1666078206}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1762279735
---- !u!4 &1812272597 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2462248988157134924, guid: a15ace78686865844bfd6b27a8dd582c, type: 3}
-  m_PrefabInstance: {fileID: 1349899282}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1932069184 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 421804525039945805, guid: a15ace78686865844bfd6b27a8dd582c, type: 3}
-  m_PrefabInstance: {fileID: 1349899282}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
@@ -1780,16 +1775,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &1812272597 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2462248988157134924, guid: a15ace78686865844bfd6b27a8dd582c, type: 3}
+  m_PrefabInstance: {fileID: 1349899282}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1932069184 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 421804525039945805, guid: a15ace78686865844bfd6b27a8dd582c, type: 3}
+  m_PrefabInstance: {fileID: 1349899282}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1762279736
-MonoBehaviour:
---- !u!114 &1932069189
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1762279735}
-  m_GameObject: {fileID: 1932069184}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 765181c9ef4b24d32a4f7cbd2ef370dc, type: 3}
@@ -1825,12 +1827,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1932069189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932069184}
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e6aed734f7cfe7429d5741167edc58a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
   onPosition: {fileID: 1160587535}
   offPosition: {fileID: 1812272597}
+  leverHandle: {fileID: 1932069184}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
