@@ -2023,11 +2023,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea742d83a2d0b19478c87db0003fc9cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Character
-  characterSpeed: 1.2
+  characterSpeed: 0.4
   dampening: 0.1
   cameraTransform: {fileID: 951829846}
   gravity: -3.5
-  jumpSpeed: 1
+  jumpSpeed: 1.2
   jumpCooldown: 0.2
 --- !u!4 &1812272597 stripped
 Transform:
