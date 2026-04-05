@@ -7,18 +7,19 @@ public class MovingPlatform : MonoBehaviour
     private Vector3 start;
     [SerializeField]
     private Vector3 end;
+    private Vector3 lastPosition;
     
     
     public Vector3 GetVelocity()
     {
-        return (end - start).normalized * platformSpeed;
+        return (transform.localPosition - lastPosition) / Time.fixedDeltaTime;
     }
 
     void FixedUpdate()
     {
+        lastPosition = transform.localPosition;
         float pingPong = Mathf.PingPong(Time.fixedTime * platformSpeed,
         1.0f);
-        var newPosition = Vector3.Lerp(start, end, pingPong);
-        transform.localPosition = newPosition;
+        transform.localPosition = Vector3.Lerp(start, end, pingPong);
     }
 }

@@ -34,6 +34,7 @@ public class Character : MonoBehaviour
     private Vector3 characterMovement;
     private Vector3 jumpVelocity;
     private Vector3 characterGravity;
+    private Vector3 platformVelocity = Vector3.zero;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -75,9 +76,11 @@ public class Character : MonoBehaviour
         bool hit = Physics.Raycast(this.transform.position, Vector3.down, out RaycastHit hitInfo, 1.0f);
         if (hit && hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Platforms") && !isJumping)
         {
-            MovingPlatform platform = hitInfo.transform.gameObject.GetComponent<MovingPlatform>();
-            var combinedMovement = (this.characterMovement + platform.GetVelocity()) * Time.fixedDeltaTime;
-            controller.Move(combinedMovement);
+            platformVelocity = hitInfo.transform.gameObject.GetComponent<MovingPlatform>().GetVelocity();
+        }
+        else
+        {
+            platformVelocity = Vector3.zero;
         }
     }
 
@@ -110,6 +113,7 @@ public class Character : MonoBehaviour
         {
             this.transform.forward = characterForward.normalized;
         }
-        this.controller.Move(this.characterMovement);
+        var combinedMovement = this.characterMovement + this.platformVelocity * Time.fixedDeltaTime;
+        this.controller.Move(combinedMovement);
     }
 }
