@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,39 +16,15 @@ public class Lever : MonoBehaviour
     private Transform offPosition;
     [SerializeField]
     private GameObject leverHandle;
-    [SerializeField]
-    private CapsuleCollider playerCollider;
 
     void Start()
     {
         interactAction = InputSystem.actions.FindAction("Interact");
-        interactAction.performed += OnInteract;
-    }
-
-    void OnDestroy()
-    {
-        interactAction.performed -= OnInteract;
-    }
-
-    void OnInteract(InputAction.CallbackContext context)
-    {
-        if (!interpolating && playerInRange)
-        {
-            ToggleLever();
-        }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == playerCollider.gameObject)
-        {
-            playerInRange = true;
-        }
-    }
-
-    void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject == playerCollider.gameObject)
+        if (other.gameObject.layer == LayerMask.NameToLayer("Character"))
         {
             playerInRange = true;
         }
@@ -57,7 +32,7 @@ public class Lever : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == playerCollider.gameObject)
+        if (other.gameObject.layer == LayerMask.NameToLayer("Character"))
         {
             playerInRange = false;
         }
@@ -99,6 +74,14 @@ public class Lever : MonoBehaviour
     {
         on = !on;
         StartCoroutine(InterpolateLeverCoroutine());
+    }
+
+    void FixedUpdate()
+    {
+        if (interactAction.WasPressedThisFrame() && !interpolating && playerInRange)
+        {
+            ToggleLever();
+        }
     }
 
 }
