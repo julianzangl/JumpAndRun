@@ -70,10 +70,21 @@ public class Character : MonoBehaviour
         this.jumpCooldownTimer -= Time.fixedDeltaTime;
     }
 
+    void GetPlatformVelocity()
+    {
+        bool hit = Physics.Raycast(this.transform.position, Vector3.down, out RaycastHit hitInfo, 1.0f);
+        if (hit && hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Platforms") && !isJumping)
+        {
+            MovingPlatform platform = hitInfo.transform.gameObject.GetComponent<MovingPlatform>();
+            var combinedMovement = (this.characterMovement + platform.GetVelocity()) * Time.fixedDeltaTime;
+            controller.Move(combinedMovement);
+        }
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
-
+        this.GetPlatformVelocity();
         this.HandleJumping();
         var inputMovement = this.moveAction.ReadValue<Vector2>();
         var inputRightDirection = this.cameraTransform.right;
