@@ -44,9 +44,9 @@ public class Lever : MonoBehaviour
         leverHandle.transform.SetPositionAndRotation(offPosition.position, offPosition.rotation);
     }
 
-    public bool isOn()
+    public bool IsOn()
     {
-        return on;
+        return true;
     }
 
     IEnumerator InterpolateLeverCoroutine()

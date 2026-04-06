@@ -26,7 +26,7 @@ public class MovingPlatform : MonoBehaviour
     void FixedUpdate()
     {
         lastPosition = transform.localPosition;
-        if (lever.isOn())
+        if (lever.IsOn())
         {
             elapsedTime += Time.fixedDeltaTime;
             float pingPong = Mathf.PingPong(elapsedTime * platformSpeed, 1.0f);
