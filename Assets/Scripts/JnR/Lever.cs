@@ -47,6 +47,8 @@ public class Lever : MonoBehaviour
     {
         on = false;
         leverHandle.transform.SetPositionAndRotation(offPosition.position, offPosition.rotation);
+        playerInRange = false;
+        if (interactHint != null) interactHint.gameObject.SetActive(false);
     }
 
     public bool IsOn()

@@ -38,6 +38,7 @@ public class Key : MonoBehaviour
     public void ResetKey()
     {
         keyCollected = false;
+        playerInRange = false;
         if (interactHint != null) interactHint.gameObject.SetActive(false);
         gameObject.SetActive(true);
     }
