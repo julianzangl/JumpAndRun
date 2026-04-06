@@ -1,6 +1,8 @@
 using System;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class RespawnTrigger : MonoBehaviour
 {
@@ -18,8 +20,13 @@ public class RespawnTrigger : MonoBehaviour
     private Key key;
 
     [SerializeField]
-    private MovingPlatform[] movingPlatforms;
+    private Stopwatch stopwatch;
 
+    [SerializeField]
+    private MovingPlatform[] movingPlatforms;
+    [SerializeField]
+    private TMP_Text chestHint;
+    private InputAction respawnAction;
     private CharacterController controller;
 
 
@@ -29,17 +36,44 @@ public class RespawnTrigger : MonoBehaviour
         controller.enabled = false;
         character.transform.position = respawnPoint.position;
         controller.enabled = true;
-        lever.ResetLever();
         character.GetComponent<Character>().ResetCharacter();
+    }
+
+    private void ResetEverything()
+    {
+        RespawnCharacter();
+        lever.ResetLever();
+        key.ResetKey();
         foreach (var platform in movingPlatforms)
         {
             platform.ResetPlatform();
         }
-        key.ResetKey();
+        stopwatch.ResetTimer();
+        if (chestHint != null)
+        {
+            chestHint.text = "You need a key to open the chest!";
+            chestHint.gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        RespawnCharacter();
+        if (other.gameObject.layer == LayerMask.NameToLayer("Character"))
+        {
+            ResetEverything();
+        }
+    }
+
+    private void Start()
+    {
+        respawnAction = InputSystem.actions.FindAction("Respawn");
+    }
+
+    void FixedUpdate()
+    {
+        if (respawnAction.WasPressedThisFrame())
+        {
+            ResetEverything();
+        }
     }
 }
