@@ -38,6 +38,17 @@ public class Lever : MonoBehaviour
         }
     }
 
+    public void ResetLever()
+    {
+        on = false;
+        leverHandle.transform.SetPositionAndRotation(offPosition.position, offPosition.rotation);
+    }
+
+    public bool isOn()
+    {
+        return on;
+    }
+
     IEnumerator InterpolateLeverCoroutine()
     {
         interpolating = true;

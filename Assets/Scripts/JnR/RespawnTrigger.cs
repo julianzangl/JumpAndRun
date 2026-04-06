@@ -11,6 +11,12 @@ public class RespawnTrigger : MonoBehaviour
     [SerializeField]
     private GameObject character;
 
+    [SerializeField]
+    private Lever lever;
+
+    [SerializeField]
+    private MovingPlatform[] movingPlatforms;
+
     private CharacterController controller;
 
 
@@ -20,6 +26,11 @@ public class RespawnTrigger : MonoBehaviour
         controller.enabled = false;
         character.transform.position = respawnPoint.position;
         controller.enabled = true;
+        lever.ResetLever();
+        foreach (var platform in movingPlatforms)
+        {
+            platform.ResetPlatform();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
