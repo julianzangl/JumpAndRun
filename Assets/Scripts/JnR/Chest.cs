@@ -38,6 +38,16 @@ public class Chest : MonoBehaviour
         }
     }
 
+    public void ResetChest()
+    {
+        CloseChest();
+        if (hint != null)
+        {
+            hint.text = "You need a key to open the chest!";
+            hint.gameObject.SetActive(false);
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Character"))

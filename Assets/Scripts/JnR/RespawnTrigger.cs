@@ -21,11 +21,13 @@ public class RespawnTrigger : MonoBehaviour
 
     [SerializeField]
     private Stopwatch stopwatch;
+    [SerializeField]
+    private Chest chest;
+    
 
     [SerializeField]
     private MovingPlatform[] movingPlatforms;
-    [SerializeField]
-    private TMP_Text chestHint;
+   
     private InputAction respawnAction;
     private CharacterController controller;
 
@@ -44,15 +46,11 @@ public class RespawnTrigger : MonoBehaviour
         RespawnCharacter();
         lever.ResetLever();
         key.ResetKey();
+        chest.ResetChest();
+        stopwatch.ResetTimer();
         foreach (var platform in movingPlatforms)
         {
             platform.ResetPlatform();
-        }
-        stopwatch.ResetTimer();
-        if (chestHint != null)
-        {
-            chestHint.text = "You need a key to open the chest!";
-            chestHint.gameObject.SetActive(false);
         }
     }
 
