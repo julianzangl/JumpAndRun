@@ -7,6 +7,7 @@ public class Character : MonoBehaviour
 
     private bool isJumping = false;
     private bool isClimbing = false;
+    private bool hasKey = false;
     private float jumpCooldownTimer;
     private CharacterController controller;
     private InputAction moveAction;
@@ -83,6 +84,24 @@ public class Character : MonoBehaviour
         {
             platformVelocity = Vector3.zero;
         }
+    }
+
+    public void CollectKey()
+    {
+        hasKey = true;
+    }
+
+    public bool HasKey()
+    {
+        return hasKey;
+    }
+
+    public void ResetCharacter()
+    {
+        hasKey = false;
+        isJumping = false;
+        isClimbing = false;
+        jumpCooldownTimer = 0.0f;
     }
 
     void OnTriggerEnter(Collider other)

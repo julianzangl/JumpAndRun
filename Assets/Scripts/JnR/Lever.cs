@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 public class Lever : MonoBehaviour
 {
     private bool on = false;
@@ -16,6 +17,8 @@ public class Lever : MonoBehaviour
     private Transform offPosition;
     [SerializeField]
     private GameObject leverHandle;
+    [SerializeField]
+    private TMP_Text interactHint;
 
     void Start()
     {
@@ -27,6 +30,7 @@ public class Lever : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Character"))
         {
             playerInRange = true;
+            if (interactHint != null) interactHint.gameObject.SetActive(true);
         }
     }
 
@@ -35,6 +39,7 @@ public class Lever : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Character"))
         {
             playerInRange = false;
+            if (interactHint != null) interactHint.gameObject.SetActive(false);
         }
     }
 
@@ -46,7 +51,7 @@ public class Lever : MonoBehaviour
 
     public bool IsOn()
     {
-        return true;
+        return on;
     }
 
     IEnumerator InterpolateLeverCoroutine()
