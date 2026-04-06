@@ -6,17 +6,17 @@ public class Character : MonoBehaviour
 {
 
     private bool isJumping = false;
-
+    private bool isClimbing = false;
     private float jumpCooldownTimer;
-
     private CharacterController controller;
-
     private InputAction moveAction;
-
     private InputAction jumpAction;
 
     [SerializeField]
     private float characterSpeed;
+
+    [SerializeField]
+    private float climbSpeed;
 
     [SerializeField]
     private float dampening;
@@ -29,6 +29,7 @@ public class Character : MonoBehaviour
 
     [SerializeField]
     private float jumpSpeed;
+
     [SerializeField]
     private float jumpCooldown;
     private Vector3 characterMovement;
@@ -84,12 +85,34 @@ public class Character : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ladder"))
+            isClimbing = true;
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ladder"))
+            isClimbing = false;
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
         this.GetPlatformVelocity();
-        this.HandleJumping();
         var inputMovement = this.moveAction.ReadValue<Vector2>();
+
+        if (isClimbing)
+        {
+            this.characterGravity = Vector3.zero;
+            this.jumpVelocity = Vector3.zero;
+            this.characterMovement = Vector3.zero;
+            this.controller.Move(Vector3.up * inputMovement.y * this.climbSpeed * Time.fixedDeltaTime);
+            return;
+        }
+
+        this.HandleJumping();
         var inputRightDirection = this.cameraTransform.right;
         var inputForwardDirection = this.cameraTransform.forward;
         inputRightDirection.y = 0.0f;
