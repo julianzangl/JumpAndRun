@@ -1,3 +1,11 @@
-# Current time to beat (06.04.2026)
+# Current time to beat (7.04.2026)
 
-<img width="1660" height="897" alt="image" src="https://github.com/user-attachments/assets/52412b07-b269-4578-8d53-1025387e8eff" />
+<img width="2223" height="1229" alt="image" src="https://github.com/user-attachments/assets/c58ebd1a-2c3e-46dd-b2c5-1e13a4e179d0" />
+
+---
+
+<details>
+  <summary>Playthrough Quest1 (Spoiler)</summary>
+
+  https://github.com/user-attachments/assets/ff358349-f7bf-4a62-b5bd-fdaf1a829dfe
+</details>
