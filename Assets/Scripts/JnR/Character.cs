@@ -138,12 +138,15 @@ public class Character : MonoBehaviour
         inputForwardDirection.y = 0.0f;
         inputRightDirection.Normalize();
         inputForwardDirection.Normalize();
+
+        this.characterGravity.y += this.gravity * Time.fixedDeltaTime;
+
         //Since we do not use the physics system, we have to simulate gravity ourselves
         if (this.controller.isGrounded)
         {
             this.characterGravity.y = 0.0f;
         }
-        this.characterGravity.y += this.gravity * Time.fixedDeltaTime;
+
         this.characterMovement += this.characterGravity * Time.fixedDeltaTime;
         this.characterMovement += this.jumpVelocity * Time.fixedDeltaTime;
         this.characterMovement += inputRightDirection * inputMovement.x * this.characterSpeed * Time.fixedDeltaTime;
