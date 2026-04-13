@@ -37,14 +37,28 @@ public class Character : MonoBehaviour
     private Vector3 jumpVelocity;
     private Vector3 characterGravity;
     private Vector3 platformVelocity = Vector3.zero;
+    private Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
         jumpCooldownTimer = 0.0f;
+    }
+
+    // void SetAnimationState()
+    // {
+    //     animator.SetBool("isJumping", isJumping);
+    // }
+
+    void SetAnimationState(Vector2 inputMovement)
+    {
+        animator.SetBool("isJumping", isJumping);
+        animator.SetBool("isRunning",inputMovement != Vector2.zero);
+        animator.SetFloat("MovementForward", inputMovement.magnitude);
     }
 
     void HandleJumping()
@@ -132,6 +146,7 @@ public class Character : MonoBehaviour
         }
 
         this.HandleJumping();
+        this.SetAnimationState(inputMovement);
         var inputRightDirection = this.cameraTransform.right;
         var inputForwardDirection = this.cameraTransform.forward;
         inputRightDirection.y = 0.0f;
