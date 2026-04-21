@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
         float timer = 0f;
         while (timer < fadingTime)
         {
+            
             float alpha = Mathf.Clamp01(timer / fadingTime);
             hudCanvasGroup.alpha = 1 - alpha;
             gameOverCanvasGroup.alpha = alpha;
