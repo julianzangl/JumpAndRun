@@ -16,7 +16,7 @@ public class CoinController : MonoBehaviour
     {
         if (!other.CompareTag("Player"))
             return;
-
+        UIManager.Instance.CollectCoin();
         audioSource.Play();
         
         Destroy(gameObject);

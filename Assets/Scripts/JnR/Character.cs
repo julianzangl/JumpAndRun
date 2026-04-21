@@ -12,7 +12,12 @@ public class Character : MonoBehaviour
     private CharacterController controller;
     private InputAction moveAction;
     private InputAction jumpAction;
+    private float currentHealth;
+    public float GetCurrentHealth() => currentHealth;
+    public float GetMaxHealth() => maxHealth;
+    public float ResetHealth() => currentHealth = maxHealth;
 
+    [SerializeField] private float maxHealth = 100f;
     [SerializeField]
     private float characterSpeed;
 
@@ -47,6 +52,7 @@ public class Character : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
         jumpCooldownTimer = 0.0f;
+        currentHealth = maxHealth;
     }
 
     // void SetAnimationState()
@@ -59,6 +65,12 @@ public class Character : MonoBehaviour
         animator.SetBool("isJumping", isJumping);
         animator.SetBool("isRunning",inputMovement != Vector2.zero);
         animator.SetFloat("MovementForward", inputMovement.magnitude);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0.0f, maxHealth);
     }
 
     void HandleJumping()

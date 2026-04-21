@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SawController : MonoBehaviour
 {
+    [Header("Damage")]
+    [SerializeField] private float damagePerSecond = 10f;
+
     [Header("Spinning")]
     [SerializeField] private float rotationSpeed = 90f;
     [SerializeField] private Vector3 spinAxis = Vector3.forward;
@@ -52,18 +55,31 @@ public class SawController : MonoBehaviour
             SetState(false);
         }
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Character character = other.GetComponent<Character>();
+            if (character != null)
+            {
+                character.TakeDamage(damagePerSecond * Time.fixedDeltaTime);
+            }
+        }
+    }
     private void SetState(bool newState)
     {
         if (isCutting == newState)
             return;
-        
+
         if (newState)
         {
             isCutting = true;
             audioSource.clip = cuttingSound;
             audioSource.Play();
             sparklingParticles.Play();
-        } else
+        }
+        else
         {
             isCutting = false;
             audioSource.clip = idleSound;

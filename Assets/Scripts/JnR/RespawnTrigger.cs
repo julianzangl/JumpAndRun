@@ -24,7 +24,6 @@ public class RespawnTrigger : MonoBehaviour
     [SerializeField]
     private Chest chest;
     
-
     [SerializeField]
     private MovingPlatform[] movingPlatforms;
    
@@ -39,6 +38,7 @@ public class RespawnTrigger : MonoBehaviour
         character.transform.position = respawnPoint.position;
         controller.enabled = true;
         character.GetComponent<Character>().ResetCharacter();
+        character.GetComponent<Character>().ResetHealth();
     }
 
     private void ResetEverything()
