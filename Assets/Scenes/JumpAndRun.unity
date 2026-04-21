@@ -6432,6 +6432,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   dialogueBox: {fileID: 1808661202}
+  dialogueText:
+    m_TableReference:
+      m_TableCollectionName: GUID:515115f1947fbab428f9a822df223498
+    m_TableEntryReference:
+      m_KeyId: 157373423616
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1001 &413801360
 PrefabInstance:
   m_ObjectHideFlags: 0
