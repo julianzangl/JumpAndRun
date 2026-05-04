@@ -8,6 +8,7 @@ public class Character : MonoBehaviour
     private bool isJumping = false;
     private bool isClimbing = false;
     private bool hasKey = false;
+    private bool jumpPressedThisFrame = false;
     private float jumpCooldownTimer;
     private CharacterController controller;
     private InputAction moveAction;
@@ -38,6 +39,13 @@ public class Character : MonoBehaviour
 
     [SerializeField]
     private float jumpCooldown;
+
+    [SerializeField]
+    private AudioSource footsteps;
+
+
+    [SerializeField]
+    private AudioSource jumpSound;
     private Vector3 characterMovement;
     private Vector3 jumpVelocity;
     private Vector3 characterGravity;
@@ -63,7 +71,7 @@ public class Character : MonoBehaviour
     void SetAnimationState(Vector2 inputMovement)
     {
         animator.SetBool("isJumping", isJumping);
-        animator.SetBool("isRunning",inputMovement != Vector2.zero);
+        animator.SetBool("isRunning", inputMovement != Vector2.zero);
         animator.SetFloat("MovementForward", inputMovement.magnitude);
     }
 
@@ -80,13 +88,14 @@ public class Character : MonoBehaviour
             this.jumpVelocity = Vector3.zero;
             this.isJumping = false;
         }
-        if (this.controller.isGrounded && !this.isJumping && this.jumpAction.WasPressedThisFrame())
+        if (this.controller.isGrounded && !this.isJumping && this.jumpPressedThisFrame)
         {
             this.characterGravity = Vector3.zero;
             this.jumpVelocity = Vector3.zero;
             this.jumpVelocity.y = this.jumpSpeed;
             this.jumpCooldownTimer = this.jumpCooldown;
             this.isJumping = true;
+            this.jumpPressedThisFrame = false;
         }
         if (this.jumpVelocity.y > 0.0f)
         {
@@ -142,12 +151,39 @@ public class Character : MonoBehaviour
             isClimbing = false;
     }
 
+    void handleFootsteps(Vector2 inputMovement)
+    {
+        if (inputMovement != Vector2.zero && !isJumping && !isClimbing)
+        {
+            if (!footsteps.isPlaying)
+            {
+                footsteps.Play();
+            }
+        }
+        else
+        {
+            if (footsteps.isPlaying)
+            {
+                footsteps.Stop();
+            }
+        }
+    }
+
     // Update is called once per frame
+    void Update()
+    {
+        if (this.jumpAction.WasPressedThisFrame() && !this.isJumping && this.controller.isGrounded && !this.isClimbing)
+        {
+            this.jumpPressedThisFrame = true;
+            this.jumpSound.Play();
+        }
+    }
+
     void FixedUpdate()
     {
         this.GetPlatformVelocity();
         var inputMovement = this.moveAction.ReadValue<Vector2>();
-
+        this.handleFootsteps(inputMovement);
         if (isClimbing)
         {
             this.characterGravity = Vector3.zero;
