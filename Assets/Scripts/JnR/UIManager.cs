@@ -46,7 +46,7 @@ public class UIManager : MonoBehaviour
         healthBar.fillAmount = healthInPercent;
         if (healthInPercent <= 0f && !isFadingOver)
         {
-            StartCoroutine(FadeInGameOverScreen());
+            //StartCoroutine(FadeInGameOverScreen()); Not ready for Quest2
         }
     }
 
