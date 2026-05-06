@@ -88,15 +88,17 @@ public class Character : MonoBehaviour
             this.jumpVelocity = Vector3.zero;
             this.isJumping = false;
         }
-        if (this.controller.isGrounded && !this.isJumping && this.jumpPressedThisFrame)
+        if (this.controller.isGrounded && !this.isJumping && !this.isClimbing && this.jumpPressedThisFrame)
         {
             this.characterGravity = Vector3.zero;
             this.jumpVelocity = Vector3.zero;
             this.jumpVelocity.y = this.jumpSpeed;
             this.jumpCooldownTimer = this.jumpCooldown;
             this.isJumping = true;
-            this.jumpPressedThisFrame = false;
+            this.jumpSound.Play();
         }
+        // Always consume the flag so it doesn't carry over
+        this.jumpPressedThisFrame = false;
         if (this.jumpVelocity.y > 0.0f)
         {
             this.jumpVelocity.y -= Time.fixedDeltaTime;
@@ -169,18 +171,14 @@ public class Character : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (this.jumpAction.WasPressedThisFrame() && !this.isJumping && this.controller.isGrounded && !this.isClimbing)
         {
             this.jumpPressedThisFrame = true;
             this.jumpSound.Play();
         }
-    }
 
-    void FixedUpdate()
-    {
         this.GetPlatformVelocity();
         var inputMovement = this.moveAction.ReadValue<Vector2>();
         this.handleFootsteps(inputMovement);

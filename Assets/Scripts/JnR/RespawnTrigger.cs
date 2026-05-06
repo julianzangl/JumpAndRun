@@ -26,6 +26,9 @@ public class RespawnTrigger : MonoBehaviour
     
     [SerializeField]
     private MovingPlatform[] movingPlatforms;
+
+    [SerializeField]
+    private EnemyStompable[] enemies;
    
     private InputAction respawnAction;
     private CharacterController controller;
@@ -51,6 +54,10 @@ public class RespawnTrigger : MonoBehaviour
         foreach (var platform in movingPlatforms)
         {
             platform.ResetPlatform();
+        }
+        foreach (var enemy in enemies)
+        {
+            enemy.ResetEnemy();
         }
     }
 

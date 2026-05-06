@@ -6,11 +6,11 @@ public class EnemyStompable : MonoBehaviour
     [SerializeField] private AudioClip squashSound;
     [SerializeField] private float squashDuration = 0.3f;
     [SerializeField] private float squashScaleY = 0.1f;
-    [SerializeField] private bool destroyAfterSquash = true;
-    [SerializeField] private float destroyDelay = 0.5f;
 
     private AudioSource audioSource;
     private bool isDead = false;
+    private Vector3 originalScale;
+    private Vector3 originalPosition;
 
     void Start()
     {
@@ -19,6 +19,23 @@ public class EnemyStompable : MonoBehaviour
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
+        originalScale = transform.localScale;
+        originalPosition = transform.position;
+    }
+
+    public void ResetEnemy()
+    {
+        transform.DOKill();
+        isDead = false;
+        transform.localScale = originalScale;
+        transform.position = originalPosition;
+        gameObject.SetActive(true);
+
+        var patrol = GetComponent<EnemyPatrol>();
+        if (patrol != null) patrol.enabled = true;
+
+        var animator = GetComponentInChildren<Animator>();
+        if (animator != null) animator.enabled = true;
     }
 
     public void Stomp()
@@ -51,10 +68,7 @@ public class EnemyStompable : MonoBehaviour
             .SetEase(Ease.OutBounce)
             .OnComplete(() =>
             {
-                if (destroyAfterSquash)
-                {
-                    Destroy(gameObject, destroyDelay);
-                }
+                gameObject.SetActive(false);
             });
     }
 }
