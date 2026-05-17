@@ -19,6 +19,11 @@ public class CoinController : MonoBehaviour
         UIManager.Instance.CollectCoin();
         audioSource.Play();
         
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+    }
+
+    public void ResetCoin()
+    {
+        gameObject.SetActive(true);
     }
 }

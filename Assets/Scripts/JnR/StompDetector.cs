@@ -25,6 +25,14 @@ public class StompDetector : MonoBehaviour
                     stompable.Stomp();
                 }
             }
+            else
+            {
+                var enemyDamage = hit.gameObject.GetComponent<EnemyDamage>();
+                if (enemyDamage != null)
+                {
+                    enemyDamage.DealDamage(GetComponent<Character>());
+                }
+            }
         }
     }
 }

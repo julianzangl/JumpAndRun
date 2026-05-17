@@ -91,7 +91,6 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("Respawn button pressed");
         respawnTrigger.ResetEverything();
-        ResetCoinCounter();
         StartCoroutine(FadeOutGameOverScreen());
     }
 
@@ -119,7 +118,7 @@ public class UIManager : MonoBehaviour
         coinCounterText.text = coinText;
     }
 
-    private void ResetCoinCounter()
+    public void ResetCoins()
     {
         statistics.coinCounter = 0;
         coinCounterText.text = "Coins: 0";
