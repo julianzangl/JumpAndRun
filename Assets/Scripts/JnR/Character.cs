@@ -9,6 +9,7 @@ public class Character : MonoBehaviour
     private bool isClimbing = false;
     private bool hasKey = false;
     private bool jumpPressedThisFrame = false;
+    private bool isDead = false;
     private float jumpCooldownTimer;
     private CharacterController controller;
     private InputAction moveAction;
@@ -79,7 +80,14 @@ public class Character : MonoBehaviour
     {
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0.0f, maxHealth);
+        if (currentHealth <= 0f && !isDead)
+        {
+            isDead = true;
+            UIManager.Instance.TriggerGameOver();
+        }
     }
+
+    public bool IsDead() => isDead;
 
     void HandleJumping()
     {
@@ -138,6 +146,7 @@ public class Character : MonoBehaviour
         hasKey = false;
         isJumping = false;
         isClimbing = false;
+        isDead = false;
         jumpCooldownTimer = 0.0f;
     }
 
@@ -173,6 +182,8 @@ public class Character : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (isDead) return;
+
         if (this.jumpAction.WasPressedThisFrame() && !this.isJumping && this.controller.isGrounded && !this.isClimbing)
         {
             this.jumpPressedThisFrame = true;

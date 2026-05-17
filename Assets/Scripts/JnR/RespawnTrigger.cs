@@ -44,7 +44,7 @@ public class RespawnTrigger : MonoBehaviour
         character.GetComponent<Character>().ResetHealth();
     }
 
-    private void ResetEverything()
+    public void ResetEverything()
     {
         RespawnCharacter();
         lever.ResetLever();
@@ -65,7 +65,8 @@ public class RespawnTrigger : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Character"))
         {
-            ResetEverything();
+            // Falling down triggers game over instead of auto-respawn
+            character.GetComponent<Character>().TakeDamage(9999f);
         }
     }
 
