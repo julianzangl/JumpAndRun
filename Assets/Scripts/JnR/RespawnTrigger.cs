@@ -29,6 +29,9 @@ public class RespawnTrigger : MonoBehaviour
 
     [SerializeField]
     private EnemyStompable[] enemies;
+
+    [SerializeField]
+    private CoinController[] coins;
    
     private InputAction respawnAction;
     private CharacterController controller;
@@ -59,6 +62,11 @@ public class RespawnTrigger : MonoBehaviour
         {
             enemy.ResetEnemy();
         }
+        foreach (var coin in coins)
+        {
+            coin.ResetCoin();
+        }
+        UIManager.Instance.ResetCoins();
     }
 
     private void OnTriggerEnter(Collider other)
