@@ -16,6 +16,8 @@ public class Chest : MonoBehaviour
     private Stopwatch stopwatch;
     [SerializeField]
     private TMP_Text hint;
+    [SerializeField]
+    private JewelController jewel;
 
     private bool isOpen = false;
 
@@ -26,6 +28,8 @@ public class Chest : MonoBehaviour
             lid.transform.SetPositionAndRotation(openPosition.position, openPosition.rotation);
             isOpen = true;
             stopwatch.StopTimer();
+            if (jewel != null)
+                jewel.Activate();
         }
     }
 
